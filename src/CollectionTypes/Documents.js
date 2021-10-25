@@ -5,7 +5,7 @@ export default class Documents extends Collection {
         super(name, configuration)
     }
 
-    formatIn(input) {
+    async formatIn(input) {
         let ret = {}
 
         for (const [key, field] of (this.fields ?? {}).entries()) {
@@ -16,11 +16,15 @@ export default class Documents extends Collection {
             }
 
             if (field.isArray) {
-                value
-                    .map(val => field.type.formatIn(val))
-                    .filter(val => val !== null)
+                let newVal = []
+                for (let val of value) {
+                    val = await field.type.formatIn(val, field)
+                    if (val !== null)
+                        newVal.push(val)
+                }
+                value = newVal
             } else {
-                value = field.type.formatIn(value)
+                value = await field.type.formatIn(value, field)
 
                 if (value === null && !field.nullable) {
                     throw new Error(`Missing value for "${key}" in the "${this.name}" collection.`)
@@ -33,7 +37,7 @@ export default class Documents extends Collection {
         return ret
     }
 
-    formatOut(doc) {
+    async formatOut(doc) {
         let ret = {
             id: this.driver.getPrimaryKey(doc),
         }
@@ -46,11 +50,15 @@ export default class Documents extends Collection {
             }
 
             if (field.isArray) {
-                value
-                    .map(val => field.type.formatOut(val))
-                    .filter(val => val !== null)
+                let newVal = []
+                for (let val of value) {
+                    val = await field.type.formatOut(val, field)
+                    if (val !== null)
+                        newVal.push(val)
+                }
+                value = newVal
             } else {
-                value = field.type.formatOut(value)
+                value = await field.type.formatOut(value, field)
             }
 
             ret[key] = value

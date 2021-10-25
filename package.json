@@ -15,5 +15,6 @@
     "build": "babel ./src --out-dir ./dist --source-maps --copy-files"
   },
   "dependencies": {
+    "dayjs": "^1.10.7"
   }
 }
