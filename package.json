@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Manage data collections from multiple databases easily.",
   "main": "dist/index.js",
-  "repository": "git@github.com:getfoxbase/extensions.git",
+  "repository": "git@github.com:getfoxbase/collections.git",
   "author": "Guillaume GAGNAIRE <contact@scrola.net>",
   "license": "GPL-3.0",
   "devDependencies": {
