@@ -1,2 +1,3 @@
-# collections
-Manage collections from multiple databases easily.
+# Foxbase Collections
+
+Manage data collections from multiple databases easily.
