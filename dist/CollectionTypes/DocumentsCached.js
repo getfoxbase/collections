@@ -7,6 +7,8 @@ exports.default = void 0;
 
 var _Documents = _interopRequireDefault(require("./Documents"));
 
+var _Model = _interopRequireDefault(require("../Model"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -16,6 +18,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 class DocumentsCached extends _Documents.default {
   constructor(name, configuration) {
     super(name, configuration);
+    this.cached = true;
     this.cache = [];
     this.loadCache();
   }
@@ -24,8 +27,22 @@ class DocumentsCached extends _Documents.default {
     var _this = this;
 
     return _asyncToGenerator(function* () {
-      _this.cache = yield _this.driver.find(_this.name, {});
+      const documents = yield _this.driver.find(_this.name, {});
+      _this.cache = [];
+
+      for (let doc of documents) {
+        _this.cache.push(new _Model.default(_this.name, yield _this.formatOut(doc), _this.driver));
+      }
     })();
+  }
+
+  removeFromCache(id) {
+    const idx = this.cache.findIndex(doc => doc.id == id);
+    if (idx !== -1) this.cache.splice(idx, 1);
+  }
+
+  addToCache(doc) {
+    this.cache.push(doc);
   }
 
   findById(id) {

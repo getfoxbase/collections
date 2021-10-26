@@ -14,25 +14,31 @@ class Driver {
     this.opts = opts;
   }
 
-  find(query) {
+  find(collectionName, query) {
     return _asyncToGenerator(function* () {
       throw new Error('find method is not implemented on current driver.');
     })();
   }
 
-  findOne(query) {
+  findOne(collectionName, query) {
     return _asyncToGenerator(function* () {
       throw new Error('findOne method is not implemented on current driver.');
     })();
   }
 
-  update(query, update) {
+  insert(collectionName, doc) {
+    return _asyncToGenerator(function* () {
+      throw new Error('insert method is not implemented on current driver.');
+    })();
+  }
+
+  update(collectionName, query, update) {
     return _asyncToGenerator(function* () {
       throw new Error('update method is not implemented on current driver.');
     })();
   }
 
-  delete(query) {
+  delete(collectionName, query) {
     return _asyncToGenerator(function* () {
       throw new Error('delete method is not implemented on current driver.');
     })();
@@ -40,6 +46,14 @@ class Driver {
 
   getPrimaryKey(doc) {
     throw new Error('getPrimaryKey method is not implemented on current driver.');
+  }
+
+  formatPrimaryKey(id) {
+    throw new Error('formatPrimaryKey method is not implemented on current driver.');
+  }
+
+  getPrimaryKeyName() {
+    throw new Error('getPrimaryKeyName method is not implemented on current driver.');
   }
 
 }

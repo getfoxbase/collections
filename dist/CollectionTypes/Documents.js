@@ -16,9 +16,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 class Documents extends _Collection.default {
   constructor(name, configuration) {
     super(name, configuration);
+    this.cached = false;
   }
 
-  formatIn(input) {
+  formatIn(input, ignoreEmpty = false) {
     var _this = this;
 
     return _asyncToGenerator(function* () {
@@ -45,7 +46,7 @@ class Documents extends _Collection.default {
         } else {
           value = yield field.type.formatIn(value, field);
 
-          if (value === null && !field.nullable) {
+          if (value === null && !field.nullable && ignoreEmpty === false) {
             throw new Error(`Missing value for "${key}" in the "${_this.name}" collection.`);
           }
         }

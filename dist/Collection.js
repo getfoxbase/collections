@@ -9,6 +9,8 @@ var _DocumentsLive = _interopRequireDefault(require("./CollectionTypes/Documents
 
 var _DocumentsCached = _interopRequireDefault(require("./CollectionTypes/DocumentsCached"));
 
+var _Model = _interopRequireDefault(require("./Model"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -83,12 +85,24 @@ class Collection {
     return (_collections$name = collections[name]) !== null && _collections$name !== void 0 ? _collections$name : null;
   }
 
-  formatIn(input) {
-    throw new Error('Method formatIn not implemented on current collection type.');
+  createDocument() {
+    var _this = this;
+
+    return _asyncToGenerator(function* () {
+      return new _Model.default(_this.name, yield _this.formatIn({}, true), _this.driver);
+    })();
+  }
+
+  formatIn(input, ignoreEmpty = false) {
+    return _asyncToGenerator(function* () {
+      throw new Error('Method formatIn not implemented on current collection type.');
+    })();
   }
 
   formatOut(doc) {
-    throw new Error('Method formatOut not implemented on current collection type.');
+    return _asyncToGenerator(function* () {
+      throw new Error('Method formatOut not implemented on current collection type.');
+    })();
   }
 
   findById(id) {

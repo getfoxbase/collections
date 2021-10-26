@@ -1,5 +1,6 @@
 import DocumentsLive from "./CollectionTypes/DocumentsLive"
 import DocumentsCached from "./CollectionTypes/DocumentsCached"
+import Model from './Model'
 
 const collections = {}
 
@@ -63,11 +64,15 @@ export default class Collection {
         return collections[name] ?? null
     }
 
-    formatIn(input) {
+    async createDocument() {
+        return new Model(this.name, await this.formatIn({}, true), this.driver)
+    }
+
+    async formatIn(input, ignoreEmpty = false) {
         throw new Error('Method formatIn not implemented on current collection type.')
     }
 
-    formatOut(doc) {
+    async formatOut(doc) {
         throw new Error('Method formatOut not implemented on current collection type.')
     }
 

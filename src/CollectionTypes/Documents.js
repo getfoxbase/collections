@@ -3,9 +3,11 @@ import Collection from '../Collection'
 export default class Documents extends Collection {
     constructor(name, configuration) {
         super(name, configuration)
+
+        this.cached = false
     }
 
-    async formatIn(input) {
+    async formatIn(input, ignoreEmpty = false) {
         let ret = {}
 
         for (const [key, field] of (this.fields ?? {}).entries()) {
@@ -26,7 +28,7 @@ export default class Documents extends Collection {
             } else {
                 value = await field.type.formatIn(value, field)
 
-                if (value === null && !field.nullable) {
+                if (value === null && !field.nullable && ignoreEmpty === false) {
                     throw new Error(`Missing value for "${key}" in the "${this.name}" collection.`)
                 }
             }
