@@ -64,8 +64,8 @@ export default class Collection {
         return collections[name] ?? null
     }
 
-    async createDocument() {
-        return new Model(this.name, await this.formatIn({}, true), this.driver)
+    async createDocument(initialValues = {}) {
+        return new Model(this.name, initialValues, this.driver)
     }
 
     async formatIn(input, ignoreEmpty = false) {
