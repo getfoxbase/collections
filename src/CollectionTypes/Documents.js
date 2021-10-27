@@ -7,7 +7,7 @@ export default class Documents extends Collection {
         this.cached = false
     }
 
-    async formatIn(input, ignoreEmpty = false) {
+    async formatIn(input) {
         let ret = {}
 
         for (const [key, field] of (this.fields ?? {}).entries()) {
@@ -28,7 +28,7 @@ export default class Documents extends Collection {
             } else {
                 value = await field.type.formatIn(value, field)
 
-                if (value === null && !field.nullable && ignoreEmpty === false) {
+                if (value === null && !field.nullable) {
                     throw new Error(`Missing value for "${key}" in the "${this.name}" collection.`)
                 }
             }
