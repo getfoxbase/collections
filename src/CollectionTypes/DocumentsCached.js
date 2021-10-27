@@ -29,26 +29,31 @@ export default class DocumentsCached extends Documents {
     }
 
     async findById(id) {
-        
+        return this.cache.find(doc => doc.id == id) ?? null
     }
 
-    async findByTags(tags) {
-        
-    }
-
-    async find(query) {
-        
+    async find(query = {}) {
+        return this.cache.filter(doc => doc.matches(query))
     }
 
     async updateById(id, data) {
-        
+        const doc = this.cache.find(doc => doc.id == id)
+        if (!doc) {
+            return false
+        }
+
+        doc.setMany(data)
+        await doc.save()
+        return true
     }
 
     async deleteById(id) {
-        
-    }
+        const doc = this.cache.find(doc => doc.id == id)
+        if (!doc) {
+            return false
+        }
 
-    async create(data) {
-        
+        await doc.delete()
+        return true
     }
 }

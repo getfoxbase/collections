@@ -18,6 +18,44 @@ export default class Model {
 
     set(key, value) {
         this.data[key] = value
+        return this
+    }
+
+    setMany(o) {
+        for (let key in o)
+            this.data[key] = o[key]
+        return this
+    }
+
+    matches(query = {}, operator = 'AND') {
+        const results = []
+        
+        for (let key in query) {
+            let request = query[key]
+            if (typeof request !== 'object') {
+                request = {
+                    $eq: request
+                }
+            }
+            
+            const condition = request[Object.keys(request)[0]] ?? '$eq'
+            const requestedValue = JSON.stringify(request[condition] ?? {})
+            const docValue = JSON.stringify(this.get(key, ''))
+            
+            switch (condition) {
+                case '$eq':
+                    results.push(requestedValue == docValue)
+                    break
+            }
+        }
+
+        switch ((operator + '').toLowerCase()) {
+            case 'or':
+                return results.findIndex(a => a) !== -1
+            case 'and':
+            default:
+                return results.findIndex(a => !a) === -1
+        }
     }
 
     async save() {

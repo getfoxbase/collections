@@ -80,10 +80,6 @@ export default class Collection {
         throw new Error('Method findById not implemented on current collection type.')
     }
 
-    async findByTags(tags) {
-        throw new Error('Method findByTags not implemented on current collection type.')
-    }
-
     async find(query) {
         throw new Error('Method find not implemented on current collection type.')
     }

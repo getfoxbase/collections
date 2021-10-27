@@ -9,10 +9,6 @@ export default class DocumentsLive extends Documents {
         
     }
 
-    async findByTags(tags) {
-        
-    }
-
     async find(query) {
         
     }
@@ -22,10 +18,6 @@ export default class DocumentsLive extends Documents {
     }
 
     async deleteById(id) {
-        
-    }
-
-    async create(data) {
         
     }
 }
