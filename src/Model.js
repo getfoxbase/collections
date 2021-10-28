@@ -25,7 +25,7 @@ export default class Model {
 
     setMany(o) {
         for (let key in o)
-            this.data[key] = o[key]
+            Dot.set(this.data, key, o[key])
         return this
     }
 

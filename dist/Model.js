@@ -44,7 +44,7 @@ class Model {
   }
 
   setMany(o) {
-    for (let key in o) this.data[key] = o[key];
+    for (let key in o) _Dot.default.set(this.data, key, o[key]);
 
     return this;
   }
