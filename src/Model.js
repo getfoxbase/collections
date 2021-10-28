@@ -49,6 +49,7 @@ export default class Model {
                 await collection.formatIn(this.data)
             )
             this.id = this.driver.getPrimaryKey(ret)
+            this.data.id = this.id
 
             if (collection.cached)
                 collection.addToCache(this)

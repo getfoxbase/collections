@@ -65,6 +65,7 @@ class Model {
         // Insert
         const ret = yield _this.driver.insert(_this.collectionName, yield collection.formatIn(_this.data));
         _this.id = _this.driver.getPrimaryKey(ret);
+        _this.data.id = _this.id;
         if (collection.cached) collection.addToCache(_this);
       }
 
