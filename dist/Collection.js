@@ -85,15 +85,15 @@ class Collection {
     return (_collections$name = collections[name]) !== null && _collections$name !== void 0 ? _collections$name : null;
   }
 
-  createDocument() {
+  createDocument(initialValues = {}) {
     var _this = this;
 
     return _asyncToGenerator(function* () {
-      return new _Model.default(_this.name, yield _this.formatIn({}, true), _this.driver);
+      return new _Model.default(_this.name, initialValues, _this.driver);
     })();
   }
 
-  formatIn(input, ignoreEmpty = false) {
+  formatIn(input) {
     return _asyncToGenerator(function* () {
       throw new Error('Method formatIn not implemented on current collection type.');
     })();
@@ -108,12 +108,6 @@ class Collection {
   findById(id) {
     return _asyncToGenerator(function* () {
       throw new Error('Method findById not implemented on current collection type.');
-    })();
-  }
-
-  findByTags(tags) {
-    return _asyncToGenerator(function* () {
-      throw new Error('Method findByTags not implemented on current collection type.');
     })();
   }
 

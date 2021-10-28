@@ -22,10 +22,6 @@ class DocumentsLive extends _Documents.default {
     return _asyncToGenerator(function* () {})();
   }
 
-  findByTags(tags) {
-    return _asyncToGenerator(function* () {})();
-  }
-
   find(query) {
     return _asyncToGenerator(function* () {})();
   }
@@ -35,10 +31,6 @@ class DocumentsLive extends _Documents.default {
   }
 
   deleteById(id) {
-    return _asyncToGenerator(function* () {})();
-  }
-
-  create(data) {
     return _asyncToGenerator(function* () {})();
   }
 

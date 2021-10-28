@@ -1,3 +1,4 @@
+import sift from 'sift'
 import Collection from "./Collection"
 
 export default class Model {
@@ -27,35 +28,8 @@ export default class Model {
         return this
     }
 
-    matches(query = {}, operator = 'AND') {
-        const results = []
-        
-        for (let key in query) {
-            let request = query[key]
-            if (typeof request !== 'object') {
-                request = {
-                    $eq: request
-                }
-            }
-            
-            const condition = request[Object.keys(request)[0]] ?? '$eq'
-            const requestedValue = JSON.stringify(request[condition] ?? {})
-            const docValue = JSON.stringify(this.get(key, ''))
-            
-            switch (condition) {
-                case '$eq':
-                    results.push(requestedValue == docValue)
-                    break
-            }
-        }
-
-        switch ((operator + '').toLowerCase()) {
-            case 'or':
-                return results.findIndex(a => a) !== -1
-            case 'and':
-            default:
-                return results.findIndex(a => !a) === -1
-        }
+    matches(query = {}) {
+        return sift(query)(this.data)
     }
 
     async save() {

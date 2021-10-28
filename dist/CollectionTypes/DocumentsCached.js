@@ -46,27 +46,52 @@ class DocumentsCached extends _Documents.default {
   }
 
   findById(id) {
-    return _asyncToGenerator(function* () {})();
+    var _this2 = this;
+
+    return _asyncToGenerator(function* () {
+      var _this2$cache$find;
+
+      return (_this2$cache$find = _this2.cache.find(doc => doc.id == id)) !== null && _this2$cache$find !== void 0 ? _this2$cache$find : null;
+    })();
   }
 
-  findByTags(tags) {
-    return _asyncToGenerator(function* () {})();
-  }
+  find(query = {}) {
+    var _this3 = this;
 
-  find(query) {
-    return _asyncToGenerator(function* () {})();
+    return _asyncToGenerator(function* () {
+      return _this3.cache.filter(doc => doc.matches(query));
+    })();
   }
 
   updateById(id, data) {
-    return _asyncToGenerator(function* () {})();
+    var _this4 = this;
+
+    return _asyncToGenerator(function* () {
+      const doc = _this4.cache.find(doc => doc.id == id);
+
+      if (!doc) {
+        return false;
+      }
+
+      doc.setMany(data);
+      yield doc.save();
+      return true;
+    })();
   }
 
   deleteById(id) {
-    return _asyncToGenerator(function* () {})();
-  }
+    var _this5 = this;
 
-  create(data) {
-    return _asyncToGenerator(function* () {})();
+    return _asyncToGenerator(function* () {
+      const doc = _this5.cache.find(doc => doc.id == id);
+
+      if (!doc) {
+        return false;
+      }
+
+      yield doc.delete();
+      return true;
+    })();
   }
 
 }

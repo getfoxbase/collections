@@ -19,7 +19,7 @@ class Documents extends _Collection.default {
     this.cached = false;
   }
 
-  formatIn(input, ignoreEmpty = false) {
+  formatIn(input) {
     var _this = this;
 
     return _asyncToGenerator(function* () {
@@ -46,7 +46,7 @@ class Documents extends _Collection.default {
         } else {
           value = yield field.type.formatIn(value, field);
 
-          if (value === null && !field.nullable && ignoreEmpty === false) {
+          if (value === null && !field.nullable) {
             throw new Error(`Missing value for "${key}" in the "${_this.name}" collection.`);
           }
         }

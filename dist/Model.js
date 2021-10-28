@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _sift = _interopRequireDefault(require("sift"));
+
 var _Collection = _interopRequireDefault(require("./Collection"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -35,6 +37,17 @@ class Model {
 
   set(key, value) {
     this.data[key] = value;
+    return this;
+  }
+
+  setMany(o) {
+    for (let key in o) this.data[key] = o[key];
+
+    return this;
+  }
+
+  matches(query = {}) {
+    return (0, _sift.default)(query)(this.data);
   }
 
   save() {
