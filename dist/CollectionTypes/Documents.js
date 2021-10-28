@@ -19,14 +19,20 @@ class Documents extends _Collection.default {
     this.cached = false;
   }
 
-  formatIn(input) {
+  formatIn(input, fields = null) {
     var _this = this;
 
     return _asyncToGenerator(function* () {
+      if (fields === null) {
+        var _this$fields;
+
+        fields = (_this$fields = _this.fields) !== null && _this$fields !== void 0 ? _this$fields : {};
+      }
+
       let ret = {};
 
-      for (const [key, field] of ((_this$fields = _this.fields) !== null && _this$fields !== void 0 ? _this$fields : {}).entries()) {
-        var _this$fields, _ref, _input$key;
+      for (const [key, field] of fields.entries()) {
+        var _ref, _input$key;
 
         let value = (_ref = (_input$key = input[key]) !== null && _input$key !== void 0 ? _input$key : field.default) !== null && _ref !== void 0 ? _ref : null;
 
@@ -38,13 +44,13 @@ class Documents extends _Collection.default {
           let newVal = [];
 
           for (let val of value) {
-            val = yield field.type.formatIn(val, field);
+            val = yield field.type.formatIn(val, field, _this);
             if (val !== null) newVal.push(val);
           }
 
           value = newVal;
         } else {
-          value = yield field.type.formatIn(value, field);
+          value = yield field.type.formatIn(value, field, _this);
 
           if (value === null && !field.nullable) {
             throw new Error(`Missing value for "${key}" in the "${_this.name}" collection.`);
@@ -58,16 +64,21 @@ class Documents extends _Collection.default {
     })();
   }
 
-  formatOut(doc) {
+  formatOut(doc, fields = null, withId = true) {
     var _this2 = this;
 
     return _asyncToGenerator(function* () {
-      let ret = {
-        id: _this2.driver.getPrimaryKey(doc)
-      };
+      if (fields === null) {
+        var _this2$fields;
 
-      for (const [key, field] of ((_this2$fields = _this2.fields) !== null && _this2$fields !== void 0 ? _this2$fields : {}).entries()) {
-        var _this2$fields, _doc$key;
+        fields = (_this2$fields = _this2.fields) !== null && _this2$fields !== void 0 ? _this2$fields : {};
+      }
+
+      let ret = {};
+      if (withId) ret.id = _this2.driver.getPrimaryKey(doc);
+
+      for (const [key, field] of fields.entries()) {
+        var _doc$key;
 
         let value = (_doc$key = doc[key]) !== null && _doc$key !== void 0 ? _doc$key : null;
 
@@ -79,13 +90,13 @@ class Documents extends _Collection.default {
           let newVal = [];
 
           for (let val of value) {
-            val = yield field.type.formatOut(val, field);
+            val = yield field.type.formatOut(val, field, _this2);
             if (val !== null) newVal.push(val);
           }
 
           value = newVal;
         } else {
-          value = yield field.type.formatOut(value, field);
+          value = yield field.type.formatOut(value, field, _this2);
         }
 
         ret[key] = value;

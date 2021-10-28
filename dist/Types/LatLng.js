@@ -12,7 +12,7 @@ var _Float = _interopRequireDefault(require("./Float"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class LatLngType extends _Type.default {
-  static formatIn(value, field) {
+  static formatIn(value) {
     if (typeof value === 'string') {
       value = value.split(',').map(v => _Float.default.formatIn(v));
       value = {
@@ -24,7 +24,7 @@ class LatLngType extends _Type.default {
     return value;
   }
 
-  static formatOut(value, field) {
+  static formatOut(value) {
     return value;
   }
 

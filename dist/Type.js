@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 class Type {
-  static formatIn(value, field) {
+  static formatIn(value, field, collection) {
     return value;
   }
 
-  static formatOut(value, field) {
+  static formatOut(value, field, collection) {
     return value;
   }
 

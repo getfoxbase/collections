@@ -68,11 +68,11 @@ export default class Collection {
         return new Model(this.name, initialValues, this.driver)
     }
 
-    async formatIn(input) {
+    async formatIn(input, fields = null) {
         throw new Error('Method formatIn not implemented on current collection type.')
     }
 
-    async formatOut(doc) {
+    async formatOut(doc, fields = null, withId = true) {
         throw new Error('Method formatOut not implemented on current collection type.')
     }
 

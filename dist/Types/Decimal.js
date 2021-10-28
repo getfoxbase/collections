@@ -16,13 +16,13 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 class DecimalType extends _Type.default {
-  static formatIn(value, field) {
+  static formatIn(value) {
     return _asyncToGenerator(function* () {
       return _Float.default.formatIn(value).toFixed(2);
     })();
   }
 
-  static formatOut(value, field) {
+  static formatOut(value) {
     return value;
   }
 

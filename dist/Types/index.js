@@ -21,6 +21,8 @@ var _LatLng = _interopRequireDefault(require("./LatLng"));
 
 var _Text = _interopRequireDefault(require("./Text"));
 
+var _Object = _interopRequireDefault(require("./Object"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = {
@@ -31,7 +33,8 @@ var _default = {
   Float: _Float.default,
   Integer: _Integer.default,
   LatLng: _LatLng.default,
-  Text: _Text.default
+  Text: _Text.default,
+  Object: _Object.default
 };
 exports.default = _default;
 //# sourceMappingURL=index.js.map

@@ -7,10 +7,14 @@ export default class Documents extends Collection {
         this.cached = false
     }
 
-    async formatIn(input) {
+    async formatIn(input, fields = null) {
+        if (fields === null) {
+            fields = this.fields ?? {}
+        }
+
         let ret = {}
 
-        for (const [key, field] of (this.fields ?? {}).entries()) {
+        for (const [key, field] of fields.entries()) {
             let value = input[key] ?? field.default ?? null
 
             if (field.isArray && value instanceof Array === false) {
@@ -20,13 +24,13 @@ export default class Documents extends Collection {
             if (field.isArray) {
                 let newVal = []
                 for (let val of value) {
-                    val = await field.type.formatIn(val, field)
+                    val = await field.type.formatIn(val, field, this)
                     if (val !== null)
                         newVal.push(val)
                 }
                 value = newVal
             } else {
-                value = await field.type.formatIn(value, field)
+                value = await field.type.formatIn(value, field, this)
 
                 if (value === null && !field.nullable) {
                     throw new Error(`Missing value for "${key}" in the "${this.name}" collection.`)
@@ -39,12 +43,16 @@ export default class Documents extends Collection {
         return ret
     }
 
-    async formatOut(doc) {
-        let ret = {
-            id: this.driver.getPrimaryKey(doc),
+    async formatOut(doc, fields = null, withId = true) {
+        if (fields === null) {
+            fields = this.fields ?? {}
         }
 
-        for (const [key, field] of (this.fields ?? {}).entries()) {
+        let ret = {}
+        if (withId)
+            ret.id = this.driver.getPrimaryKey(doc)
+
+        for (const [key, field] of fields.entries()) {
             let value = doc[key] ?? null
 
             if (field.isArray && value instanceof Array === false) {
@@ -54,13 +62,13 @@ export default class Documents extends Collection {
             if (field.isArray) {
                 let newVal = []
                 for (let val of value) {
-                    val = await field.type.formatOut(val, field)
+                    val = await field.type.formatOut(val, field, this)
                     if (val !== null)
                         newVal.push(val)
                 }
                 value = newVal
             } else {
-                value = await field.type.formatOut(value, field)
+                value = await field.type.formatOut(value, field, this)
             }
 
             ret[key] = value

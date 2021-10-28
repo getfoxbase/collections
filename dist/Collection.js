@@ -93,13 +93,13 @@ class Collection {
     })();
   }
 
-  formatIn(input) {
+  formatIn(input, fields = null) {
     return _asyncToGenerator(function* () {
       throw new Error('Method formatIn not implemented on current collection type.');
     })();
   }
 
-  formatOut(doc) {
+  formatOut(doc, fields = null, withId = true) {
     return _asyncToGenerator(function* () {
       throw new Error('Method formatOut not implemented on current collection type.');
     })();

@@ -10,11 +10,11 @@ var _Type = _interopRequireDefault(require("../Type"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class FloatType extends _Type.default {
-  static formatIn(value, field) {
+  static formatIn(value) {
     return parseFloat(`${value}`.replace(/\s/g, '').replace(/,/g, '.'));
   }
 
-  static formatOut(value, field) {
+  static formatOut(value) {
     return value;
   }
 

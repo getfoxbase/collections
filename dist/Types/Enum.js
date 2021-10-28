@@ -22,7 +22,7 @@ class EnumType extends _Type.default {
     return value;
   }
 
-  static formatOut(value, field) {
+  static formatOut(value) {
     return value;
   }
 

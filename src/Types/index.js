@@ -6,6 +6,7 @@ import FloatType from './Float'
 import IntegerType from './Integer'
 import LatLngType from './LatLng'
 import TextType from './Text'
+import ObjectType from './Object'
 
 export default {
     Boolean: BooleanType,
@@ -15,5 +16,6 @@ export default {
     Float: FloatType,
     Integer: IntegerType,
     LatLng: LatLngType,
-    Text: TextType
+    Text: TextType,
+    Object: ObjectType
 }

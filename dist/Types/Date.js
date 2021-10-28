@@ -12,11 +12,11 @@ var _Type = _interopRequireDefault(require("../Type"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class DateType extends _Type.default {
-  static formatIn(value, field) {
+  static formatIn(value) {
     return (0, _dayjs.default)(value).toDate();
   }
 
-  static formatOut(value, field) {
+  static formatOut(value) {
     return value;
   }
 
