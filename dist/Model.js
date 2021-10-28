@@ -7,6 +7,8 @@ exports.default = void 0;
 
 var _sift = _interopRequireDefault(require("sift"));
 
+var _Dot = _interopRequireDefault(require("./Tools/Dot"));
+
 var _Collection = _interopRequireDefault(require("./Collection"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -30,13 +32,14 @@ class Model {
   }
 
   get(key, defaultValue = null) {
-    var _this$data$key;
+    var _Dot$get;
 
-    return (_this$data$key = this.data[key]) !== null && _this$data$key !== void 0 ? _this$data$key : defaultValue;
+    return (_Dot$get = _Dot.default.get(this.data, key)) !== null && _Dot$get !== void 0 ? _Dot$get : defaultValue;
   }
 
   set(key, value) {
-    this.data[key] = value;
+    _Dot.default.set(this.data, key, value);
+
     return this;
   }
 

@@ -1,4 +1,5 @@
 import sift from 'sift'
+import Dot from './Tools/Dot'
 import Collection from "./Collection"
 
 export default class Model {
@@ -14,11 +15,11 @@ export default class Model {
     }
 
     get(key, defaultValue = null) {
-        return this.data[key] ?? defaultValue
+        return Dot.get(this.data, key) ?? defaultValue
     }
 
     set(key, value) {
-        this.data[key] = value
+        Dot.set(this.data, key, value)
         return this
     }
 
