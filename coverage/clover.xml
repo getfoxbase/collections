@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1635411770760" clover="3.2.0">
-  <project timestamp="1635411770760" name="All files">
+<coverage generated="1636215121778" clover="3.2.0">
+  <project timestamp="1636215121778" name="All files">
     <metrics statements="26" coveredstatements="26" conditionals="26" coveredconditionals="26" methods="2" coveredmethods="2" elements="54" coveredelements="54" complexity="0" loc="26" ncloc="26" packages="1" files="1" classes="1"/>
-    <file name="Dot.js" path="C:\Users\Guillaume\Dev\foxbase-collections\src\Tools\Dot.js">
+    <file name="Dot.js" path="C:\Users\conta\dev\collections\src\Tools\Dot.js">
       <metrics statements="26" coveredstatements="26" conditionals="26" coveredconditionals="26" methods="2" coveredmethods="2"/>
       <line num="3" count="12" type="cond" truecount="4" falsecount="0"/>
       <line num="4" count="2" type="stmt"/>
