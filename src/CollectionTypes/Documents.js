@@ -76,4 +76,7 @@ export default class Documents extends Collection {
 
         return ret
     }
+    
+    removeFromCache(id) {}
+    addToCache(doc) {}
 }

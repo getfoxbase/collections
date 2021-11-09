@@ -106,6 +106,10 @@ class Documents extends _Collection.default {
     })();
   }
 
+  removeFromCache(id) {}
+
+  addToCache(doc) {}
+
 }
 
 exports.default = Documents;

@@ -52,8 +52,7 @@ export default class Model {
             this.id = this.driver.getPrimaryKey(ret)
             this.data.id = this.id
 
-            if (collection.cached)
-                collection.addToCache(this)
+            collection.addToCache(this)
         }
         
         return true
@@ -72,8 +71,7 @@ export default class Model {
             query
         )
 
-        if (collection.cached)
-            collection.removeFromCache(this.id)
+        collection.removeFromCache(this.id)
         
         this.id = null
         return ret

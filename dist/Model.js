@@ -69,7 +69,7 @@ class Model {
         const ret = yield _this.driver.insert(_this.collectionName, yield collection.formatIn(_this.data));
         _this.id = _this.driver.getPrimaryKey(ret);
         _this.data.id = _this.id;
-        if (collection.cached) collection.addToCache(_this);
+        collection.addToCache(_this);
       }
 
       return true;
@@ -87,7 +87,7 @@ class Model {
       const collection = _this2.getCollection();
 
       const ret = yield _this2.driver.delete(_this2.collectionName, query);
-      if (collection.cached) collection.removeFromCache(_this2.id);
+      collection.removeFromCache(_this2.id);
       _this2.id = null;
       return ret;
     })();
