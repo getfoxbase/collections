@@ -48,6 +48,10 @@ class MySQL extends _Driver.default {
     })();
   }
 
+  destroy() {
+    return _asyncToGenerator(function* () {})();
+  }
+
   getPrimaryKey(doc) {
     var _doc$id;
 

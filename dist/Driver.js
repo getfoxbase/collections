@@ -44,6 +44,10 @@ class Driver {
     })();
   }
 
+  destroy() {
+    return _asyncToGenerator(function* () {})();
+  }
+
   getPrimaryKey(doc) {
     throw new Error('getPrimaryKey method is not implemented on current driver.');
   }

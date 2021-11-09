@@ -23,6 +23,8 @@ export default class Driver {
         throw new Error('delete method is not implemented on current driver.')
     }
 
+    async destroy() {}
+
     getPrimaryKey(doc) {
         throw new Error('getPrimaryKey method is not implemented on current driver.')
     }

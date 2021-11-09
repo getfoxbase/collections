@@ -1,28 +1,64 @@
+import { MongoClient, ObjectId } from 'mongodb'
 import Driver from '../Driver'
 
 export default class MongoDB extends Driver {
     constructor(opts) {
         super(opts)
+
+        this.client = new MongoClient(opts.dsn, {
+            keepAlive: true,
+            appName: 'foxbase',
+            ...(opts.options ?? {})
+        })
+        this.db = null
+    }
+
+    async init() {
+        if (this.db === null) {
+            return
+        }
+        await this.client.connect()
+        this.db = this.client.db(this.opts.db)
+    }
+
+    async destroy() {
+        await this.client.close()
     }
 
     async find(collectionName, query) {
-        throw new Error('find method is not implemented on current driver.')
+        await this.init()
+
+        const cursor = this.db.collection(collectionName).find(query)
+        return await cursor.toArray()
     }
 
     async findOne(collectionName, query) {
-        throw new Error('findOne method is not implemented on current driver.')
+        await this.init()
+
+        const doc = this.db.collection(collectionName).findOne(query)
+        return doc ?? null
     }
 
     async insert(collectionName, doc) {
-        throw new Error('insert method is not implemented on current driver.')
+        await this.init()
+
+        this.db.collection(collectionName).insertOne(doc)
+
+        return doc
     }
 
     async update(collectionName, query, update) {
-        throw new Error('update method is not implemented on current driver.')
+        await this.init()
+
+        this.db.collection(collectionName).updateMany(query, {
+            $set: update
+        })
     }
 
     async delete(collectionName, query) {
-        throw new Error('delete method is not implemented on current driver.')
+        await this.init()
+
+        this.db.collection(collectionName).deleteMany(query)
     }
 
     getPrimaryKey(doc) {
@@ -32,7 +68,7 @@ export default class MongoDB extends Driver {
     }
 
     formatPrimaryKey(id) {
-        return ObjectID.fromHexString(id)
+        return ObjectId.createFromHexString(id)
     }
 
     getPrimaryKeyName() {

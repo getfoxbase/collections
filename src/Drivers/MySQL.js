@@ -25,6 +25,8 @@ export default class MySQL extends Driver {
         throw new Error('delete method is not implemented on current driver.')
     }
 
+    async destroy() {}
+
     getPrimaryKey(doc) {
         return doc.id ?? null
     }
