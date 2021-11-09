@@ -95,10 +95,10 @@ class MongoDB extends _Driver.default {
 
     return _asyncToGenerator(function* () {
       yield _this6.init();
-
-      _this6.db.collection(collectionName).updateMany(query, {
+      const ret = yield _this6.db.collection(collectionName).updateMany(query, {
         $set: update
       });
+      return ret.modifiedCount;
     })();
   }
 
@@ -107,8 +107,8 @@ class MongoDB extends _Driver.default {
 
     return _asyncToGenerator(function* () {
       yield _this7.init();
-
-      _this7.db.collection(collectionName).deleteMany(query);
+      const ret = yield _this7.db.collection(collectionName).deleteMany(query);
+      return ret.deletedCount;
     })();
   }
 

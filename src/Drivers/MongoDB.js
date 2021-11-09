@@ -50,15 +50,19 @@ export default class MongoDB extends Driver {
     async update(collectionName, query, update) {
         await this.init()
 
-        this.db.collection(collectionName).updateMany(query, {
+        const ret = await this.db.collection(collectionName).updateMany(query, {
             $set: update
         })
+
+        return ret.modifiedCount
     }
 
     async delete(collectionName, query) {
         await this.init()
 
-        this.db.collection(collectionName).deleteMany(query)
+        const ret = await this.db.collection(collectionName).deleteMany(query)
+
+        return ret.deletedCount
     }
 
     getPrimaryKey(doc) {
