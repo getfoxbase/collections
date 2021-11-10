@@ -37,7 +37,7 @@ class MongoDB extends _Driver.default {
     var _this = this;
 
     return _asyncToGenerator(function* () {
-      if (_this.db === null) {
+      if (_this.db !== null) {
         return;
       }
 

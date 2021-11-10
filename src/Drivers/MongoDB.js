@@ -14,7 +14,7 @@ export default class MongoDB extends Driver {
     }
 
     async init() {
-        if (this.db === null) {
+        if (this.db !== null) {
             return
         }
         await this.client.connect()
