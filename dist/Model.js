@@ -51,6 +51,10 @@ class Model {
     return (0, _sift.default)(query)(this.data);
   }
 
+  export() {
+    return this.data;
+  }
+
   save() {
     var _this = this;
 

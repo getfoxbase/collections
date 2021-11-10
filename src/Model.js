@@ -32,6 +32,10 @@ export default class Model {
         return sift(query)(this.data)
     }
 
+    export() {
+        return this.data
+    }
+
     async save() {
         if (this.id !== null) { // Update
             const query = {}
