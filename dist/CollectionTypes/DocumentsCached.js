@@ -31,7 +31,7 @@ class DocumentsCached extends _Documents.default {
       _this.cache = [];
 
       for (let doc of documents) {
-        _this.cache.push(new _Model.default(_this.name, yield _this.formatOut(doc), _this.driver));
+        _this.cache.push(new _Model.default(_this, yield _this.formatOut(doc)));
       }
     })();
   }

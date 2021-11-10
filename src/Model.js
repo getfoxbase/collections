@@ -1,17 +1,16 @@
 import sift from 'sift'
 import Dot from './Tools/Dot'
-import Collection from "./Collection"
 
 export default class Model {
-    constructor(collectionName, data, driver) {
-        this.driver = driver
-        this.collectionName = collectionName
+    constructor(collection, data) {
+        this.collection = collection
+        this.driver = collection.driver
         this.data = data
         this.id = data.id ?? null
     }
 
     getCollection() {
-        return Collection.get(this.collectionName)
+        return this.collection
     }
 
     get(key, defaultValue = null) {
@@ -34,25 +33,23 @@ export default class Model {
     }
 
     async save() {
-        const collection = Collection.get(this.collectionName)
-
         if (this.id !== null) { // Update
             const query = {}
             query[this.driver.getPrimaryKeyName()] = this.driver.formatPrimaryKey(this.id)
             const ret = await this.driver.update(
-                this.collectionName,
+                this.collection.name,
                 query,
-                await collection.formatIn(this.data)
+                await this.collection.formatIn(this.data)
             )
         } else { // Insert
             const ret = await this.driver.insert(
-                this.collectionName,
-                await collection.formatIn(this.data)
+                this.collection.name,
+                await this.collection.formatIn(this.data)
             )
             this.id = this.driver.getPrimaryKey(ret)
             this.data.id = this.id
 
-            collection.addToCache(this)
+            this.collection.addToCache(this)
         }
         
         return true
@@ -67,7 +64,7 @@ export default class Model {
 
         const collection = this.getCollection()
         const ret = await this.driver.delete(
-            this.collectionName,
+            this.collection.name,
             query
         )
 

@@ -15,15 +15,15 @@ export default class DocumentsLive extends Documents {
             return null
         }
 
-        return new Model(this.name, await this.formatOut(docData), this.driver)
+        return new Model(this, await this.formatOut(docData))
     }
 
-    async find(query) {
+    async find(query = {}) {
         const documents = await this.driver.find(this.name, query)
         const ret = []
 
         for (let doc of documents) {
-            ret.push(new Model(this.name, await this.formatOut(doc), this.driver))
+            ret.push(new Model(this, await this.formatOut(doc)))
         }
         
         return ret

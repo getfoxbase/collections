@@ -1,5 +1,3 @@
-import DocumentsLive from "./CollectionTypes/DocumentsLive"
-import DocumentsCached from "./CollectionTypes/DocumentsCached"
 import Model from './Model'
 
 const collections = {}
@@ -39,17 +37,8 @@ export default class Collection {
      * @param {string} name Collection name
      * @param {object} opts Options
      */
-    static create(name, opts) {
-        const classes = {
-            Live,
-            Cached
-        }
-        const className = opts.cached ? 'DocumentsCached' : 'DocumentsLive'
-        if (classes[className] === undefined) {
-            throw new Error(`Collection type "${className}" does not exists.`)
-        }
-
-        collections[name] = new classes[className](name, opts)
+    static create(name, opts, type) {
+        collections[name] = new type(name, opts)
 
         return collections[name]
     }
@@ -65,7 +54,7 @@ export default class Collection {
     }
 
     async createDocument(initialValues = {}) {
-        return new Model(this.name, initialValues, this.driver)
+        return new Model(this, initialValues)
     }
 
     async formatIn(input, fields = null) {
@@ -80,7 +69,7 @@ export default class Collection {
         throw new Error('Method findById not implemented on current collection type.')
     }
 
-    async find(query) {
+    async find(query = {}) {
         throw new Error('Method find not implemented on current collection type.')
     }
 

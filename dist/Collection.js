@@ -5,10 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _DocumentsLive = _interopRequireDefault(require("./CollectionTypes/DocumentsLive"));
-
-var _DocumentsCached = _interopRequireDefault(require("./CollectionTypes/DocumentsCached"));
-
 var _Model = _interopRequireDefault(require("./Model"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -57,18 +53,8 @@ class Collection {
    */
 
 
-  static create(name, opts) {
-    const classes = {
-      Live,
-      Cached
-    };
-    const className = opts.cached ? 'DocumentsCached' : 'DocumentsLive';
-
-    if (classes[className] === undefined) {
-      throw new Error(`Collection type "${className}" does not exists.`);
-    }
-
-    collections[name] = new classes[className](name, opts);
+  static create(name, opts, type) {
+    collections[name] = new type(name, opts);
     return collections[name];
   }
   /**
@@ -89,7 +75,7 @@ class Collection {
     var _this = this;
 
     return _asyncToGenerator(function* () {
-      return new _Model.default(_this.name, initialValues, _this.driver);
+      return new _Model.default(_this, initialValues);
     })();
   }
 
@@ -111,7 +97,7 @@ class Collection {
     })();
   }
 
-  find(query) {
+  find(query = {}) {
     return _asyncToGenerator(function* () {
       throw new Error('Method find not implemented on current collection type.');
     })();

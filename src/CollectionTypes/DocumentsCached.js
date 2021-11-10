@@ -14,7 +14,7 @@ export default class DocumentsCached extends Documents {
         const documents = await this.driver.find(this.name, {})
         this.cache = []
         for (let doc of documents) {
-            this.cache.push(new Model(this.name, await this.formatOut(doc), this.driver))
+            this.cache.push(new Model(this, await this.formatOut(doc)))
         }
     }
 

@@ -32,11 +32,11 @@ class DocumentsLive extends _Documents.default {
         return null;
       }
 
-      return new _Model.default(_this.name, yield _this.formatOut(docData), _this.driver);
+      return new _Model.default(_this, yield _this.formatOut(docData));
     })();
   }
 
-  find(query) {
+  find(query = {}) {
     var _this2 = this;
 
     return _asyncToGenerator(function* () {
@@ -44,7 +44,7 @@ class DocumentsLive extends _Documents.default {
       const ret = [];
 
       for (let doc of documents) {
-        ret.push(new _Model.default(_this2.name, yield _this2.formatOut(doc), _this2.driver));
+        ret.push(new _Model.default(_this2, yield _this2.formatOut(doc)));
       }
 
       return ret;

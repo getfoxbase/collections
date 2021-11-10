@@ -9,8 +9,6 @@ var _sift = _interopRequireDefault(require("sift"));
 
 var _Dot = _interopRequireDefault(require("./Tools/Dot"));
 
-var _Collection = _interopRequireDefault(require("./Collection"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -18,17 +16,17 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 class Model {
-  constructor(collectionName, data, driver) {
+  constructor(collection, data) {
     var _data$id;
 
-    this.driver = driver;
-    this.collectionName = collectionName;
+    this.collection = collection;
+    this.driver = collection.driver;
     this.data = data;
     this.id = (_data$id = data.id) !== null && _data$id !== void 0 ? _data$id : null;
   }
 
   getCollection() {
-    return _Collection.default.get(this.collectionName);
+    return this.collection;
   }
 
   get(key, defaultValue = null) {
@@ -57,19 +55,18 @@ class Model {
     var _this = this;
 
     return _asyncToGenerator(function* () {
-      const collection = _Collection.default.get(_this.collectionName);
-
       if (_this.id !== null) {
         // Update
         const query = {};
         query[_this.driver.getPrimaryKeyName()] = _this.driver.formatPrimaryKey(_this.id);
-        const ret = yield _this.driver.update(_this.collectionName, query, yield collection.formatIn(_this.data));
+        const ret = yield _this.driver.update(_this.collection.name, query, yield _this.collection.formatIn(_this.data));
       } else {
         // Insert
-        const ret = yield _this.driver.insert(_this.collectionName, yield collection.formatIn(_this.data));
+        const ret = yield _this.driver.insert(_this.collection.name, yield _this.collection.formatIn(_this.data));
         _this.id = _this.driver.getPrimaryKey(ret);
         _this.data.id = _this.id;
-        collection.addToCache(_this);
+
+        _this.collection.addToCache(_this);
       }
 
       return true;
@@ -86,7 +83,7 @@ class Model {
 
       const collection = _this2.getCollection();
 
-      const ret = yield _this2.driver.delete(_this2.collectionName, query);
+      const ret = yield _this2.driver.delete(_this2.collection.name, query);
       collection.removeFromCache(_this2.id);
       _this2.id = null;
       return ret;
