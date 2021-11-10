@@ -1,6 +1,6 @@
 {
   "name": "@foxbase/collections",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Manage data collections from multiple databases easily.",
   "main": "dist/index.js",
   "repository": "git@github.com:getfoxbase/collections.git",
@@ -11,10 +11,12 @@
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "babel-jest": "^27.3.1",
-    "jest": "^27.3.1"
+    "jest": "^27.3.1",
+    "madge": "^5.0.1"
   },
   "scripts": {
     "build": "babel ./src --out-dir ./dist --source-maps --copy-files",
+    "check-circular": "madge --circular src",
     "test": "jest"
   },
   "dependencies": {
