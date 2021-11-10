@@ -14,7 +14,7 @@ export default class Documents extends Collection {
 
         let ret = {}
 
-        for (const [key, field] of fields.entries()) {
+        for (const [key, field] of Object.entries(fields)) {
             let value = input[key] ?? field.default ?? null
 
             if (field.isArray && value instanceof Array === false) {
@@ -52,7 +52,7 @@ export default class Documents extends Collection {
         if (withId)
             ret.id = this.driver.getPrimaryKey(doc)
 
-        for (const [key, field] of fields.entries()) {
+        for (const [key, field] of Object.entries(fields)) {
             let value = doc[key] ?? null
 
             if (field.isArray && value instanceof Array === false) {

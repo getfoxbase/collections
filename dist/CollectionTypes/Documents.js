@@ -31,7 +31,7 @@ class Documents extends _Collection.default {
 
       let ret = {};
 
-      for (const [key, field] of fields.entries()) {
+      for (const [key, field] of Object.entries(fields)) {
         var _ref, _input$key;
 
         let value = (_ref = (_input$key = input[key]) !== null && _input$key !== void 0 ? _input$key : field.default) !== null && _ref !== void 0 ? _ref : null;
@@ -77,7 +77,7 @@ class Documents extends _Collection.default {
       let ret = {};
       if (withId) ret.id = _this2.driver.getPrimaryKey(doc);
 
-      for (const [key, field] of fields.entries()) {
+      for (const [key, field] of Object.entries(fields)) {
         var _doc$key;
 
         let value = (_doc$key = doc[key]) !== null && _doc$key !== void 0 ? _doc$key : null;
