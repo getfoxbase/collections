@@ -1,6 +1,6 @@
 {
   "name": "@foxbase/collections",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Manage data collections from multiple databases easily.",
   "main": "dist/index.js",
   "repository": "git@github.com:getfoxbase/collections.git",
