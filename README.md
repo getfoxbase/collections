@@ -66,9 +66,9 @@ const poi = createCollection("poi", {
         attributes: {
             type: Types.Object,
             fields: {
-                image: {
+                images: {
                     type: Types.Text,
-                    nullable: true
+                    isArray: true
                 },
                 opened: {
                     type: Types.Boolean,
@@ -90,7 +90,8 @@ newPoi.setMany({
     position: '45.6168286,0.1072459',
     description: "Very interesting"
 })
-newPoi.set('attributes.image', 'https://example.com/image.png')
+newPoi.push('attributes.images', 'https://example.com/image.png')
+newPoi.set('attributes.opened', false)
 await newPoi.save()
 console.log(newPoi.id) // 28792
 console.log(newPoi.get('attributes.opened')) // true

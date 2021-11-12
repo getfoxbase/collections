@@ -41,6 +41,18 @@ class Model {
     return this;
   }
 
+  push(key, value) {
+    const arr = this.get(key, []);
+
+    if (arr instanceof Array === false) {
+      arr = [arr].filter(a => a !== null);
+    }
+
+    arr.push(value);
+    this.set(key, arr);
+    return this;
+  }
+
   setMany(o) {
     for (let key in o) _Dot.default.set(this.data, key, o[key]);
 
