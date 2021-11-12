@@ -53,7 +53,7 @@ export default class Collection {
         return collections[name] ?? null
     }
 
-    async createDocument(initialValues = {}) {
+    createDocument(initialValues = {}) {
         return new Model(this, initialValues)
     }
 

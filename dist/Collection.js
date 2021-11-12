@@ -72,11 +72,7 @@ class Collection {
   }
 
   createDocument(initialValues = {}) {
-    var _this = this;
-
-    return _asyncToGenerator(function* () {
-      return new _Model.default(_this, initialValues);
-    })();
+    return new _Model.default(this, initialValues);
   }
 
   formatIn(input, fields = null) {
